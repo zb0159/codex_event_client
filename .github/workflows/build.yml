@@ -17,14 +17,15 @@ jobs:
     - name: Setup MSVC
       uses: ilammy/msvc-dev-cmd@v1
 
-    - name: Build libevent
+    - name: Clone and Build libevent
       run: |
+        git clone --branch release-2.1.12-stable --depth 1 https://github.com/libevent/libevent.git
         cd libevent
         nmake /f Makefile.nmake
 
     - name: Build EventProxy
       run: |
-        cl /EHsc /MD /I\ libevent\include\ /I\libevent\WIN32-Code\ event_proxy_fixed.cpp /Fe:event_proxy.exe /link /LIBPATH:\libevent\ libevent.lib ws2_32.lib user32.lib shell32.lib advapi32.lib
+        cl /EHsc /MD /I libevent\include\ /I libevent\WIN32-Code\ event_proxy_fixed.cpp /Fe:event_proxy.exe /link /LIBPATH:libevent\ libevent.lib ws2_32.lib user32.lib shell32.lib advapi32.lib
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
