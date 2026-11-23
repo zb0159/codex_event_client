@@ -12,7 +12,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup MSVC
       uses: ilammy/msvc-dev-cmd@v1
@@ -27,7 +27,7 @@ jobs:
         cl /EHsc /MD /I\ libevent\include\ /I\libevent\WIN32-Code\ event_proxy_fixed.cpp /Fe:event_proxy.exe /link /LIBPATH:\libevent\ libevent.lib ws2_32.lib user32.lib shell32.lib advapi32.lib
 
     - name: Upload artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: event-proxy-exe
         path: event_proxy.exe
